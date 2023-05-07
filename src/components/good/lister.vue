@@ -44,7 +44,7 @@ const goodLink = () => {
 
   &-info {
     flex: 1;
-    border-bottom: 1rpx solid rgba($color: #000000, $alpha: 0.05);
+    border-bottom: 1rpx solid $uni-border-color;
     position: relative;
 
     &-title {

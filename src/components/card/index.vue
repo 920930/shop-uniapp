@@ -27,10 +27,10 @@ const naviTo = () => {
   align-items: center;
   justify-content: space-between;
   padding: 16rpx 3%;
-  border-bottom: 1rpx solid rgba($color: #000000, $alpha: 0.05);
+  border-bottom: 1rpx solid $uni-border-color;
 
   &-more {
-    color: rgba($color: #000000, $alpha: 0.5);
+    color: $uni-text-color-grey;
     font-size: small;
     display: flex;
     align-items: center;

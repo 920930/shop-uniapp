@@ -36,7 +36,7 @@ withDefaults(defineProps<{
 .com {
   margin: 20rpx 3% 0;
   border-bottom-width: v-bind("border ? '1rpx' : '0'");
-  border-bottom-color: rgba($color: #000000, $alpha: 0.05);
+  border-bottom-color: $uni-border-color;
   border-bottom-style: solid;
   padding-bottom: 20rpx;
 
@@ -59,7 +59,7 @@ withDefaults(defineProps<{
   }
 
   &-content {
-    color: rgba($color: #000000, $alpha: 0.6);
+    color: $uni-text-color-grey;
     font-size: 30rpx;
   }
 

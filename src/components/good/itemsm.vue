@@ -36,12 +36,12 @@ import { ref } from 'vue';
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 24rpx;
+    font-size: $uni-font-size-xs;
     margin-top: 6rpx;
 
     &-price {
       color: red;
-      font-size: 26rpx;
+      font-size: $uni-font-size-sm;
       margin-right: 10rpx;
       flex: 1;
     }

@@ -55,12 +55,12 @@ const goodLink = () => {
     &-center {
       font-size: 28rpx;
       margin: 8rpx 0;
-      color: $uni-color-primary;
+      color: $uni-text-color-red;
     }
 
     &-price {
-      color: $uni-text-color-placeholder;
-      font-size: 30rpx;
+      color: $uni-text-color-red;
+      font-size: $uni-font-size-sm;
 
       &-biger {
         font-size: 40rpx;
