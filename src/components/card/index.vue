@@ -9,10 +9,12 @@
 </template>
 
 <script lang='ts' setup>
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   title: string;
   link?: string;
-}>()
+}>(), {
+  title: ''
+})
 
 const naviTo = () => {
   uni.navigateTo({

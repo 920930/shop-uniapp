@@ -4,13 +4,16 @@
   <GoodTitle />
   <Separ />
   <Card title="商品评论" link="/pages/good/comment?id=1">
-    <Comment :more="false" :imgShow="false" />
-    <Comment :more="false" :border="false" :imgShow="false" />
+    <view @tap="linkBtn">
+      <Comment border :more="false" :len="0" />
+      <Comment :more="false" :len="0" />
+    </view>
   </Card>
   <Separ />
-  <Card title="行家心得" link="/pages/good/comment?id=1">
-    <Comment :more="false" />
-    <Comment :more="false" :border="false" />
+  <Card title="行家心得">
+    <view @tap="linkBtn">
+      <Comment :more="false" />
+    </view>
   </Card>
   <Separ />
   <view class="shop">
@@ -111,6 +114,11 @@ onPageScroll((e: { scrollTop: number }) => topBool.value = e.scrollTop > 6 ? tru
 //   }).exec();
 // })
 
+const linkBtn = () => {
+  uni.navigateTo({
+    url: '/pages/good/comment?id=1'
+  })
+}
 </script>
 
 <style lang='scss' scoped>

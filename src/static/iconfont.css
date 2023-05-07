@@ -1,7 +1,7 @@
 @font-face {
   font-family: "iconfont";
   /* Project id 4033315 */
-  src: url('iconfont.ttf?t=1683345562160') format('truetype');
+  src: url('iconfont.ttf?t=1683441536543') format('truetype');
 }
 
 .iconfont {
@@ -10,6 +10,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-more:before {
+  content: "\e66f";
+}
+
+.icon-jifenshangcheng:before {
+  content: "\e622";
+}
+
+.icon-icon-fuli-fill:before {
+  content: "\e600";
 }
 
 .icon-xiaoxinghuoche:before {
