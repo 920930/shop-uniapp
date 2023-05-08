@@ -1,7 +1,7 @@
 <template>
   <view class="header">
-    <text class="iconfont icon-left header-back" @tap="goBack"></text>
-    <text class="header-center">{{ title }}</text>
+    <text class="iconfont header-back" :class="modelShow ? 'icon-close1' : 'icon-left'" @tap="goBack"></text>
+    <text class="header-center">{{ !modelShow ? title : `${imgs.current}/${imgs.len}` }}</text>
     <!-- #ifdef APP-PLUS -->
     <view class="iconfont icon-fenxiang header-right"></view>
     <!-- #endif -->
@@ -10,15 +10,17 @@
 </template>
 
 <script lang='ts' setup>
-import { reactive } from 'vue';
+import { reactive, onBeforeUnmount } from 'vue';
 withDefaults(defineProps<{
   topBool: boolean;
   title: string;
   fullstatus?: boolean;
+  modelShow?: boolean;
 }>(), {
   topBool: false,
   title: '',
   fullstatus: false,
+  modelShow: false
 })
 
 // #ifndef APP-PLUS
@@ -33,7 +35,19 @@ header.height = ret.height;
 header.left = ret.left;
 // #endif
 
-const goBack = () => uni.navigateBack()
+const goBack = () => uni.navigateBack();
+
+const imgs = reactive({
+  current: 1,
+  len: 0,
+})
+// #ifdef APP-PLUS
+
+uni.$on('modal', (val: any) => {
+  imgs.current = val.imgs.current;
+  imgs.len = val.imgs.len;
+});
+// #endif
 </script>
 
 <style lang='scss' scoped>
@@ -60,7 +74,7 @@ const goBack = () => uni.navigateBack()
   left: 0;
   width: 100%;
   box-sizing: border-box;
-  z-index: 10;
+  z-index: 20;
   background-color: v-bind('topBool ? "white" : null');
   transition: background-color 0.5s;
   display: flex;
@@ -83,14 +97,10 @@ const goBack = () => uni.navigateBack()
     line-height: 60rpx;
     text-align: center;
     box-sizing: border-box;
-    padding-right: 6rpx;
-    // #ifndef APP-PLUS
-    // margin-top: 6px;
-    // #endif
   }
 
   &-center {
-    display: v-bind('topBool ? "inline-block" : "none"');
+    display: v-bind('topBool ? "inline-block" : modelShow ? "inline-block" : "none"');
     // #ifndef APP-PLUS
     width: v-bind('header.left + "px"');
     // #endif

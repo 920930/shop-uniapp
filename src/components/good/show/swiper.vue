@@ -1,17 +1,19 @@
 <template>
-  <view circular class="swiper-box">
-    <swiper circular class="swiper" :value="current" @change="change">
-      <swiper-item class="swiper-item" v-for="im in imgs" :key="im">
-        <image :src="im" mode="aspectFill" class="swiper-item" />
+  <view class="swiper-box" @tap="open">
+    <swiper circular :value="current" @change="change" class="swiper-box-swiper">
+      <swiper-item v-for="im in imgs" :key="im">
+        <image :src="im" mode="aspectFill" class="swiper-box-swiper-item" />
       </swiper-item>
     </swiper>
     <view class="swiper-box-dot">{{ current + 1 }}/{{ imgs.length }}</view>
   </view>
+
+  <view class="swiper" v-if="show" @tap="open" @touchmove.stop.prevent="() => { }"></view>
 </template>
 
 <script lang='ts' setup>
-import { ref } from 'vue'
-withDefaults(defineProps<{
+import { ref } from 'vue';
+const props = withDefaults(defineProps<{
   imgs?: string[]
 }>(), {
   imgs: () => [
@@ -22,23 +24,51 @@ withDefaults(defineProps<{
 })
 
 const current = ref(0)
-const change = (e: any) => current.value = e.detail.current
+const change = (e: any) => current.value = e.detail.current;
+const show = ref(false);
+
+// #ifdef APP-PLUS
+uni.$emit('modal', {
+  bool: show.value,
+  imgs: { current, len: props.imgs.length }
+})
+uni.$on('modalClose', () => {
+  show.value = false
+  uni.$emit('modal', {
+    bool: show.value,
+    imgs: { current, len: props.imgs.length }
+  })
+});
+// #endif
+
+const open = () => {
+  // #ifdef MP
+  uni.previewImage({
+    urls: props.imgs
+  })
+  // #endif
+  // #ifdef APP-PLUS
+  show.value = !show.value;
+  uni.$emit('modal', show.value)
+  // #endif
+}
+
 </script>
 
 <style lang='scss' scoped>
-.swiper {
-  height: 700rpx;
-
-  &-item {
-    height: 100%;
-    width: 100%;
-  }
-
-}
-
 .swiper-box {
   height: 700rpx;
   position: relative;
+
+  &-swiper {
+    width: 100%;
+    height: 100%;
+
+    &-item {
+      height: 100%;
+      width: 100%;
+    }
+  }
 
   &-dot {
     position: absolute;
@@ -50,5 +80,17 @@ const change = (e: any) => current.value = e.detail.current
     color: white;
     font-size: 24rpx;
   }
+}
+
+.swiper {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: red;
+  left: 0;
+  bottom: 0;
+  z-index: 11;
+  overflow: hidden;
+
 }
 </style>

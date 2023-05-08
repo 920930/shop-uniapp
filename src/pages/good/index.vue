@@ -1,5 +1,5 @@
 <template>
-  <GoodHeader :topBool="topBool" title="商品页面" />
+  <GoodHeader :topBool="topBool" :modelShow="show" title="商品页面" />
   <GoodSwiper />
   <GoodTitle />
   <Separ />
@@ -72,7 +72,10 @@
   </Card>
 
   <Separ />
-  <view class="like-top">相似商品</view>
+  <view class="like-top">
+    <text class="iconfont icon-jifenshangcheng like-top-icon"></text>
+    <text>相似商品</text>
+  </view>
   <view class="like">
     <GoodList />
     <GoodList />
@@ -92,8 +95,7 @@
 
 <script lang='ts' setup>
 import { ref } from 'vue';
-// import { onReady } from '@dcloudio/uni-app'
-import { onPageScroll } from '@dcloudio/uni-app';
+import { onPageScroll, onBackPress, onUnload } from '@dcloudio/uni-app';
 import GoodHeader from '@/components/good/show/header.vue';
 import GoodSwiper from '@/components/good/show/swiper.vue';
 import GoodTitle from '@/components/good/show/title.vue';
@@ -106,6 +108,24 @@ import GoodList from '@/components/good/item.vue'
 // 页面滚动判断
 const topBool = ref(false);
 onPageScroll((e: { scrollTop: number }) => topBool.value = e.scrollTop > 6 ? true : false)
+
+const show = ref(false)
+// #ifdef APP-PLUS
+const showFn = (val: any) => show.value = val.bool
+uni.$on('modal', showFn);
+
+onBackPress(() => {
+  uni.$on('modal', showFn);
+  if (show.value) {
+    uni.$emit('modalClose', false);
+    return true
+  }
+  return false
+})
+
+onUnload(() => uni.$off('modal', showFn))
+// #endif
+
 
 // onReady(() => {
 //   const query = uni.createSelectorQuery().select('.like')
@@ -271,8 +291,16 @@ const linkBtn = () => {
 }
 
 .like-top {
-  text-align: center;
-  padding: 10rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $uni-text-color-red;
+  padding: 20rpx 0;
+
+  &-icon {
+    font-size: 34rpx;
+    margin-right: 10rpx;
+  }
 }
 
 .like {
