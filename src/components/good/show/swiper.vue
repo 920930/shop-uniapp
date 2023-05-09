@@ -8,11 +8,12 @@
     <view class="swiper-box-dot">{{ current + 1 }}/{{ imgs.length }}</view>
   </view>
 
-  <view class="swiper" v-if="show" @tap="open" @touchmove.stop.prevent="() => { }"></view>
+  <view class="swiper" v-if="goodSwiper.modal" @tap="open" @touchmove.stop.prevent="() => { }"></view>
 </template>
 
 <script lang='ts' setup>
 import { ref } from 'vue';
+import { useGoodSwiperStore } from '@/stores/goodSwiper'
 const props = withDefaults(defineProps<{
   imgs?: string[]
 }>(), {
@@ -22,23 +23,15 @@ const props = withDefaults(defineProps<{
     'https://rs1.huanqiucdn.cn/dp/api/files/imageDir/4af15ee2e3f5493980faca89855d2b4e.jpg',
   ]
 })
-
+const goodSwiper = useGoodSwiperStore()
 const current = ref(0)
-const change = (e: any) => current.value = e.detail.current;
-const show = ref(false);
+const change = (e: any) => {
+  current.value = e.detail.current;
+  goodSwiper.setCurrentTotal({ current: current.value, total: props.imgs.length })
+}
 
 // #ifdef APP-PLUS
-uni.$emit('modal', {
-  bool: show.value,
-  imgs: { current, len: props.imgs.length }
-})
-uni.$on('modalClose', () => {
-  show.value = false
-  uni.$emit('modal', {
-    bool: show.value,
-    imgs: { current, len: props.imgs.length }
-  })
-});
+goodSwiper.setCurrentTotal({ current: current.value, total: props.imgs.length })
 // #endif
 
 const open = () => {
@@ -48,8 +41,7 @@ const open = () => {
   })
   // #endif
   // #ifdef APP-PLUS
-  show.value = !show.value;
-  uni.$emit('modal', show.value)
+  goodSwiper.toggleModal();
   // #endif
 }
 
@@ -59,6 +51,10 @@ const open = () => {
 .swiper-box {
   height: 700rpx;
   position: relative;
+  top: v-bind("goodSwiper.modal ? '50%' : '0'");
+  transform: v-bind("goodSwiper.modal ? 'translateY(-50%)' : 'translateY(0)'");
+  z-index: 12;
+  translate: all 1s;
 
   &-swiper {
     width: 100%;
@@ -86,11 +82,10 @@ const open = () => {
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: red;
+  background-color: black;
   left: 0;
   bottom: 0;
   z-index: 11;
   overflow: hidden;
-
 }
 </style>

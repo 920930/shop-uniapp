@@ -1,7 +1,7 @@
 <template>
   <view class="header">
-    <text class="iconfont header-back" :class="modelShow ? 'icon-close1' : 'icon-left'" @tap="goBack"></text>
-    <text class="header-center">{{ !modelShow ? title : `${imgs.current}/${imgs.len}` }}</text>
+    <text class="iconfont header-back" :class="goodSwiper.modal ? 'icon-close1' : 'icon-left'" @tap="goBack"></text>
+    <text class="header-center">{{ !goodSwiper.modal ? title : `${goodSwiper.current + 1}/${goodSwiper.total}` }}</text>
     <!-- #ifdef APP-PLUS -->
     <view class="iconfont icon-fenxiang header-right"></view>
     <!-- #endif -->
@@ -10,19 +10,18 @@
 </template>
 
 <script lang='ts' setup>
-import { reactive, onBeforeUnmount } from 'vue';
+import { reactive } from 'vue';
+import { useGoodSwiperStore } from '@/stores/goodSwiper'
 withDefaults(defineProps<{
   topBool: boolean;
   title: string;
   fullstatus?: boolean;
-  modelShow?: boolean;
 }>(), {
   topBool: false,
   title: '',
   fullstatus: false,
-  modelShow: false
 })
-
+const goodSwiper = useGoodSwiperStore()
 // #ifndef APP-PLUS
 const ret = uni.getMenuButtonBoundingClientRect();
 const header = reactive({
@@ -37,16 +36,8 @@ header.left = ret.left;
 
 const goBack = () => uni.navigateBack();
 
-const imgs = reactive({
-  current: 1,
-  len: 0,
-})
 // #ifdef APP-PLUS
 
-uni.$on('modal', (val: any) => {
-  imgs.current = val.imgs.current;
-  imgs.len = val.imgs.len;
-});
 // #endif
 </script>
 
@@ -100,7 +91,7 @@ uni.$on('modal', (val: any) => {
   }
 
   &-center {
-    display: v-bind('topBool ? "inline-block" : modelShow ? "inline-block" : "none"');
+    display: v-bind('topBool ? "inline-block" : goodSwiper.modal ? "inline-block" : "none"');
     // #ifndef APP-PLUS
     width: v-bind('header.left + "px"');
     // #endif
@@ -109,6 +100,7 @@ uni.$on('modal', (val: any) => {
     // #endif
     text-align: center;
     transition: all 1s ease-out;
+    color: v-bind('goodSwiper.modal ? "white" : "black"');
   }
 
   &-right {

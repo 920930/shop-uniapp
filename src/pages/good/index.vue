@@ -1,5 +1,5 @@
 <template>
-  <GoodHeader :topBool="topBool" :modelShow="show" title="商品页面" />
+  <GoodHeader :topBool="topBool" title="商品页面" />
   <GoodSwiper />
   <GoodTitle />
   <Separ />
@@ -96,6 +96,7 @@
 <script lang='ts' setup>
 import { ref } from 'vue';
 import { onPageScroll, onBackPress, onUnload } from '@dcloudio/uni-app';
+import { useGoodSwiperStore } from '@/stores/goodSwiper'
 import GoodHeader from '@/components/good/show/header.vue';
 import GoodSwiper from '@/components/good/show/swiper.vue';
 import GoodTitle from '@/components/good/show/title.vue';
@@ -104,26 +105,20 @@ import Cart from '@/components/cart/tab.vue';
 import Card from '@/components/card/index.vue';
 import Comment from '@/components/comment/index.vue';
 import GoodItem from '@/components/good/itemsm.vue'
-import GoodList from '@/components/good/item.vue'
+import GoodList from '@/components/good/item.vue';
 // 页面滚动判断
 const topBool = ref(false);
 onPageScroll((e: { scrollTop: number }) => topBool.value = e.scrollTop > 6 ? true : false)
 
-const show = ref(false)
 // #ifdef APP-PLUS
-const showFn = (val: any) => show.value = val.bool
-uni.$on('modal', showFn);
-
+const goodSwiper = useGoodSwiperStore()
 onBackPress(() => {
-  uni.$on('modal', showFn);
-  if (show.value) {
-    uni.$emit('modalClose', false);
+  if (goodSwiper.modal) {
+    goodSwiper.toggleModal()
     return true
   }
   return false
 })
-
-onUnload(() => uni.$off('modal', showFn))
 // #endif
 
 
