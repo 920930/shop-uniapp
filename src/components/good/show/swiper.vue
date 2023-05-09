@@ -1,27 +1,35 @@
 <template>
-  <view class="swiper-box" @tap="open">
-    <swiper circular :value="current" @change="change" class="swiper-box-swiper">
+  <view class="swiper" @tap="open" @touchmove[envet].prevent="() => { }">
+    <swiper circular :value="current" @change="change" class="swiper-box">
       <swiper-item v-for="im in imgs" :key="im">
-        <image :src="im" mode="aspectFill" class="swiper-box-swiper-item" />
+        <image :src="im" mode="aspectFill" class="swiper-box-item" />
       </swiper-item>
     </swiper>
-    <view class="swiper-box-dot">{{ current + 1 }}/{{ imgs.length }}</view>
+    <view class="swiper-dot" v-if="!goodSwiper.modal">{{ current + 1 }}/{{ imgs.length }}</view>
+    <view class="swiper-title" v-if="goodSwiper.modal">JFK JFK JFK是结果JFK就公开警告国际法快捷方式国家科技发生范德萨</view>
+    <view class="swiper-info" v-if="goodSwiper.modal" @tap.stop="() => {}">
+      <view class="swiper-info-price">券后￥<text class="swiper-info-price-b">4078</text>历史最低价格</view>
+      <view class="swiper-info-btn" @tap.stop="byFn">去下单</view>
+    </view>
   </view>
 
-  <view class="swiper" v-if="goodSwiper.modal" @tap="open" @touchmove.stop.prevent="() => { }"></view>
+  <view class="swiper-modal" v-if="goodSwiper.modal" @tap="open" @touchmove.stop.prevent="() => { }">
+  </view>
 </template>
 
 <script lang='ts' setup>
 import { ref } from 'vue';
 import { useGoodSwiperStore } from '@/stores/goodSwiper'
 const props = withDefaults(defineProps<{
-  imgs?: string[]
+  imgs?: string[];
+  title?: string;
 }>(), {
   imgs: () => [
     'https://rs1.huanqiucdn.cn/dp/api/files/imageDir/f539fc9724206a17e7ee69941ae1d77c.jpg',
     'https://rs1.huanqiucdn.cn/dp/api/files/imageDir/83a432ffdcbf2bae25a1f62799455b61.jpg',
     'https://rs1.huanqiucdn.cn/dp/api/files/imageDir/4af15ee2e3f5493980faca89855d2b4e.jpg',
-  ]
+  ],
+  title: 'JFK JFK数据库设计收费的'
 })
 const goodSwiper = useGoodSwiperStore()
 const current = ref(0)
@@ -45,18 +53,23 @@ const open = () => {
   // #endif
 }
 
+const byFn = () => {
+  console.log(123)
+}
+
+const envet = ref('stop')
 </script>
 
 <style lang='scss' scoped>
-.swiper-box {
+.swiper {
   height: 700rpx;
   position: relative;
-  top: v-bind("goodSwiper.modal ? '50%' : '0'");
+  top: v-bind("goodSwiper.modal ? '45%' : '0'");
   transform: v-bind("goodSwiper.modal ? 'translateY(-50%)' : 'translateY(0)'");
-  z-index: 12;
+  z-index: 15;
   translate: all 1s;
 
-  &-swiper {
+  &-box {
     width: 100%;
     height: 100%;
 
@@ -76,16 +89,46 @@ const open = () => {
     color: white;
     font-size: 24rpx;
   }
+  &-title{
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 15rpx;
+    padding: 0 10rpx;
+    font-size: small;
+  }
+  &-info{
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 40rpx;
+    padding: 0 10rpx;
+    font-size: small;
+    &-price{
+      &-b{
+        font-size: x-large;
+        margin-right: 16rpx;
+      }
+    }
+    &-btn{
+      background-color: red;
+      padding: 8rpx 16rpx;
+      border-radius: 10rpx;
+      font-size: medium;
+    }
+  }
 }
 
-.swiper {
-  position: absolute;
+.swiper-modal {
+  position: fixed;
   height: 100%;
   width: 100%;
   background-color: black;
   left: 0;
   bottom: 0;
-  z-index: 11;
+  z-index: 12;
   overflow: hidden;
 }
 </style>

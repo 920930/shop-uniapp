@@ -134,6 +134,8 @@ const linkBtn = () => {
     url: '/pages/good/comment?id=1'
   })
 }
+
+onUnload(() => goodSwiper.$reset())
 </script>
 
 <style lang='scss' scoped>
