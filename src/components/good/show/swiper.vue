@@ -1,5 +1,5 @@
 <template>
-  <view class="swiper" @tap="open" @touchmove[envet].prevent="() => { }">
+  <view class="swiper" @tap="open" @touchmove.stop.prevent="() => { }">
     <swiper circular :value="current" @change="change" class="swiper-box">
       <swiper-item v-for="im in imgs" :key="im">
         <image :src="im" mode="aspectFill" class="swiper-box-item" />
@@ -48,9 +48,9 @@ const open = () => {
     urls: props.imgs
   })
   // #endif
-  // #ifdef APP-PLUS
+  console.log('open')
   goodSwiper.toggleModal();
-  // #endif
+  goodSwiper.toggleTopBool(!goodSwiper.modal)
 }
 
 const byFn = () => {

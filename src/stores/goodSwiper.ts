@@ -4,6 +4,7 @@ export const useGoodSwiperStore = defineStore('goodswiper', {
   state: () => {
     return {
       modal: false,
+      topBool: false,
       current: 0,
       total: 0
     };
@@ -13,6 +14,9 @@ export const useGoodSwiperStore = defineStore('goodswiper', {
   actions: {
     toggleModal() {
       this.modal = !this.modal;
+    },
+    toggleTopBool(val: boolean) {
+      this.topBool = val;
     },
     setCurrentTotal({ current, total }: { current: number; total: number }) {
       this.current = current;

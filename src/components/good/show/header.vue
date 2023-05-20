@@ -1,5 +1,5 @@
 <template>
-  <view class="header">
+  <view class="header" @touchmove.stop.prevent="() => { }">
     <text class="iconfont header-back" :class="goodSwiper.modal ? 'icon-close1' : 'icon-left'" @tap="goBack"></text>
     <text class="header-center">{{ !goodSwiper.modal ? title : `${goodSwiper.current + 1}/${goodSwiper.total}` }}</text>
     <!-- #ifdef APP-PLUS -->
