@@ -8,7 +8,7 @@
       <text class="iconfont icon-chat" style="font-size: large;"></text>
       <text>客服</text>
     </view>
-    <view class="cart-item">
+    <view class="cart-item" @click="toCart">
       <text class="iconfont icon-cart" style="font-size: large;"></text>
       <text>购物车</text>
     </view>
@@ -19,8 +19,9 @@
 </template>
 
 <script lang='ts' setup>
-import { ref } from 'vue'
-
+const toCart = () => uni.navigateTo({
+  url: '/pages/cart/index'
+});
 </script>
 
 <style lang='scss' scoped>

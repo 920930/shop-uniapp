@@ -106,12 +106,13 @@ import Card from '@/components/card/index.vue';
 import Comment from '@/components/comment/index.vue';
 import GoodItem from '@/components/good/itemsm.vue'
 import GoodList from '@/components/good/item.vue';
+const goodSwiper = useGoodSwiperStore()
 // 页面滚动判断
 const topBool = ref(false);
 onPageScroll((e: { scrollTop: number }) => topBool.value = e.scrollTop > 6 ? true : false)
 
 // #ifdef APP-PLUS
-const goodSwiper = useGoodSwiperStore()
+
 onBackPress(() => {
   if (goodSwiper.modal) {
     goodSwiper.toggleModal()
