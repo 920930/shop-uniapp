@@ -23,6 +23,13 @@
 			"style": {
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/cart/index",
+			"style": {
+				"navigationBarTitleText": "购物车",
+				"backgroundColor": "#F7F7F7"
+			}
 		}
 	],
 	"globalStyle": {

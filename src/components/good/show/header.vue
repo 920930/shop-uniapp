@@ -1,7 +1,13 @@
 <template>
+<<<<<<< HEAD
   <view class="header" @touchmove.stop.prevent="() => { }">
     <text class="iconfont header-back" :class="goodSwiper.modal ? 'icon-close1' : 'icon-left'" @tap="goBack"></text>
     <text class="header-center">{{ !goodSwiper.modal ? title : `${goodSwiper.current + 1}/${goodSwiper.total}` }}</text>
+=======
+  <view class="header">
+    <text class="iconfont header-back icon-left" @tap="goBack"></text>
+    <text class="header-center">{{ title }}</text>
+>>>>>>> 52554abad4b1f70c9061322167b46203cd3b625c
     <!-- #ifdef APP-PLUS -->
     <view class="iconfont icon-fenxiang header-right"></view>
     <!-- #endif -->
@@ -11,7 +17,6 @@
 
 <script lang='ts' setup>
 import { reactive } from 'vue';
-import { useGoodSwiperStore } from '@/stores/goodSwiper'
 withDefaults(defineProps<{
   topBool: boolean;
   title: string;
@@ -21,7 +26,6 @@ withDefaults(defineProps<{
   title: '',
   fullstatus: false,
 })
-const goodSwiper = useGoodSwiperStore()
 // #ifndef APP-PLUS
 const ret = uni.getMenuButtonBoundingClientRect();
 const header = reactive({
@@ -65,7 +69,7 @@ const goBack = () => uni.navigateBack();
   left: 0;
   width: 100%;
   box-sizing: border-box;
-  z-index: 20;
+  z-index: 10;
   background-color: v-bind('topBool ? "white" : null');
   transition: background-color 0.5s;
   display: flex;
@@ -91,7 +95,7 @@ const goBack = () => uni.navigateBack();
   }
 
   &-center {
-    display: v-bind('topBool ? "inline-block" : goodSwiper.modal ? "inline-block" : "none"');
+    display: v-bind('topBool ? "inline-block" : "none"');
     // #ifndef APP-PLUS
     width: v-bind('header.left + "px"');
     // #endif
@@ -100,7 +104,7 @@ const goBack = () => uni.navigateBack();
     // #endif
     text-align: center;
     transition: all 1s ease-out;
-    color: v-bind('goodSwiper.modal ? "white" : "black"');
+    color: black;
   }
 
   &-right {

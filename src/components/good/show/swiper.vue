@@ -1,20 +1,36 @@
 <template>
+<<<<<<< HEAD
   <view class="swiper" @tap="open" @touchmove.stop.prevent="() => { }">
+=======
+  <view class="swiper" @tap="open">
+>>>>>>> 52554abad4b1f70c9061322167b46203cd3b625c
     <swiper circular :value="current" @change="change" class="swiper-box">
       <swiper-item v-for="im in imgs" :key="im">
         <image :src="im" mode="aspectFill" class="swiper-box-item" />
       </swiper-item>
     </swiper>
-    <view class="swiper-dot" v-if="!goodSwiper.modal">{{ current + 1 }}/{{ imgs.length }}</view>
-    <view class="swiper-title" v-if="goodSwiper.modal">JFK JFK JFK是结果JFK就公开警告国际法快捷方式国家科技发生范德萨</view>
-    <view class="swiper-info" v-if="goodSwiper.modal" @tap.stop="() => {}">
-      <view class="swiper-info-price">券后￥<text class="swiper-info-price-b">4078</text>历史最低价格</view>
-      <view class="swiper-info-btn" @tap.stop="byFn">去下单</view>
-    </view>
+    <view class="swiper-dot">{{ current + 1 }}/{{ imgs.length }}</view>
   </view>
 
+  <!-- #ifdef APP-PLUS -->
   <view class="swiper-modal" v-if="goodSwiper.modal" @tap="open" @touchmove.stop.prevent="() => { }">
+    <view class="swiper-modal-header">
+      <text class="iconfont icon-close1 swiper-modal-header-back"></text>
+      <text class="swiper-modal-header-center">{{ `${goodSwiper.current + 1}/${goodSwiper.total}` }}</text>
+      <view class="iconfont icon-fenxiang swiper-modal-header-right" @tap.stop="() => {}"></view>
+    </view>
+    <swiper circular :value="current" @change="change" class="swiper-modal-box">
+      <swiper-item v-for="im in imgs" :key="im">
+        <image :src="im" mode="aspectFill" class="swiper-box-item" />
+      </swiper-item>
+    </swiper>
+    <view class="swiper-modal-title" @tap.stop="() => {}">JFK JFK JFK是结果JFK就公开警告国际法快捷方式国家科技发生范德萨</view>
+    <view class="swiper-modal-info" @tap.stop="() => {}">
+      <view class="swiper-modal-info-price">券后￥<text class="swiper-info-price-b">4078</text>历史最低价格</view>
+      <view class="swiper-modal-info-btn" @tap.stop="byFn">去下单</view>
+    </view>
   </view>
+  <!-- #endif -->
 </template>
 
 <script lang='ts' setup>
@@ -64,10 +80,6 @@ const envet = ref('stop')
 .swiper {
   height: 700rpx;
   position: relative;
-  top: v-bind("goodSwiper.modal ? '45%' : '0'");
-  transform: v-bind("goodSwiper.modal ? 'translateY(-50%)' : 'translateY(0)'");
-  z-index: 15;
-  translate: all 1s;
 
   &-box {
     width: 100%;
@@ -88,6 +100,49 @@ const envet = ref('stop')
     border-radius: 100rpx;
     color: white;
     font-size: 24rpx;
+  }
+}
+
+    // #ifdef APP-PLUS
+.swiper-modal {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  left: 0;
+  bottom: 0;
+  z-index: 12;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  &-header{
+    position: absolute;
+    color: white;
+    padding: var(--status-bar-height) 3% 0;
+    height: calc(var(--status-bar-height) + 80rpx);
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    &-back{
+      font-size: 50rpx;
+    }
+    &-right{
+      font-size: 50rpx;
+    }
+  }
+  &-box {
+    width: 100%;
+    height: 700rpx;
+
+    &-item {
+      height: 100%;
+      width: 100%;
+    }
   }
   &-title{
     color: white;
@@ -120,15 +175,5 @@ const envet = ref('stop')
     }
   }
 }
-
-.swiper-modal {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background-color: black;
-  left: 0;
-  bottom: 0;
-  z-index: 12;
-  overflow: hidden;
-}
+    // #endif
 </style>
