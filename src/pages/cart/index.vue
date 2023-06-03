@@ -1,28 +1,32 @@
 <template>
-  <view class="list">
-    <view>小米京东自营店</view>
-    <view class="list-content">
-      <image class="list-content-img" src="https://www.zcfsjt.com/storage/images/2023/0420/1_20230420113702_DAKN27gKjc.jpg" />
-      <view>
-        <text>小米1.5匹 新一级能耗 变频冷热</text>
+  <template v-for="list in carts.lists" :key="list.id">
+    <view class="list">
+      <view>小米京东自营店</view>
+      <view class="list-content">
+        <checkbox-group @change="(e: any) => carts.toggleCheck(e, list.id)">
+          <checkbox :checked="list.check" />
+        </checkbox-group>
+        <image class="list-content-img" :src="list.img" />
+        <view>
+          <text>{{ list.title }}</text>
+          <view>光速蓝 *+128G</view>
+          <view>
+            <text>￥{{ list.price }}</text>
+            <text>1</text>
+          </view>
+        </view>
       </view>
     </view>
-  </view>
-  <Separ />
-  <view class="list">
-    <view>小米京东自营店</view>
-    <view class="list-content">
-      <image class="list-content-img" src="https://www.zcfsjt.com/storage/images/2023/0420/1_20230420113702_DAKN27gKjc.jpg" />
-      <view>
-        <text>小米1.5匹 新一级能耗 变频冷热</text>
-      </view>
-    </view>
-  </view>
+    <Separ />
+  </template>
   <view style="height: 100rpx"></view>
   <view class="total">
-    <label class="total-check"><checkbox value="cb" checked="true" />选中</label>
+    <checkbox-group class="total-check" @change="(e: any) => carts.toggleCheck(e)">
+      <label><checkbox value="1" :checked="carts.isAllCheck" />选中</label>
+    </checkbox-group>
+    
     <view class="total-center">
-      <text>合计</text><text>￥40</text>
+      <text>合计</text><text>￥{{ carts.total }}</text>
       <view class="total-center-text">不含运费</view>
     </view>
     <view class="total-js">结算(3)</view>
@@ -31,6 +35,8 @@
 
 <script lang='ts' setup>
 import Separ from '@/components/separator/index.vue';
+import { goodCart } from '@/stores/goodCart';
+const carts = goodCart()
 </script>
 
 <style lang='scss' scoped>
