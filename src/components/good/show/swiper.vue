@@ -1,9 +1,6 @@
 <template>
-<<<<<<< HEAD
   <view class="swiper" @tap="open" @touchmove.stop.prevent="() => { }">
-=======
-  <view class="swiper" @tap="open">
->>>>>>> 52554abad4b1f70c9061322167b46203cd3b625c
+    <!-- <view class="swiper" @tap="open"> -->
     <swiper circular :value="current" @change="change" class="swiper-box">
       <swiper-item v-for="im in imgs" :key="im">
         <image :src="im" mode="aspectFill" class="swiper-box-item" />
@@ -17,15 +14,15 @@
     <view class="swiper-modal-header">
       <text class="iconfont icon-close1 swiper-modal-header-back"></text>
       <text class="swiper-modal-header-center">{{ `${goodSwiper.current + 1}/${goodSwiper.total}` }}</text>
-      <view class="iconfont icon-fenxiang swiper-modal-header-right" @tap.stop="() => {}"></view>
+      <view class="iconfont icon-fenxiang swiper-modal-header-right" @tap.stop="() => { }"></view>
     </view>
     <swiper circular :value="current" @change="change" class="swiper-modal-box">
       <swiper-item v-for="im in imgs" :key="im">
         <image :src="im" mode="aspectFill" class="swiper-box-item" />
       </swiper-item>
     </swiper>
-    <view class="swiper-modal-title" @tap.stop="() => {}">JFK JFK JFK是结果JFK就公开警告国际法快捷方式国家科技发生范德萨</view>
-    <view class="swiper-modal-info" @tap.stop="() => {}">
+    <view class="swiper-modal-title" @tap.stop="() => { }">JFK JFK JFK是结果JFK就公开警告国际法快捷方式国家科技发生范德萨</view>
+    <view class="swiper-modal-info" @tap.stop="() => { }">
       <view class="swiper-modal-info-price">券后￥<text class="swiper-info-price-b">4078</text>历史最低价格</view>
       <view class="swiper-modal-info-btn" @tap.stop="byFn">去下单</view>
     </view>
@@ -103,7 +100,7 @@ const envet = ref('stop')
   }
 }
 
-    // #ifdef APP-PLUS
+// #ifdef APP-PLUS
 .swiper-modal {
   position: fixed;
   height: 100%;
@@ -116,7 +113,8 @@ const envet = ref('stop')
   display: flex;
   flex-direction: column;
   justify-content: center;
-  &-header{
+
+  &-header {
     position: absolute;
     color: white;
     padding: var(--status-bar-height) 3% 0;
@@ -128,13 +126,16 @@ const envet = ref('stop')
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    &-back{
+
+    &-back {
       font-size: 50rpx;
     }
-    &-right{
+
+    &-right {
       font-size: 50rpx;
     }
   }
+
   &-box {
     width: 100%;
     height: 700rpx;
@@ -144,7 +145,8 @@ const envet = ref('stop')
       width: 100%;
     }
   }
-  &-title{
+
+  &-title {
     color: white;
     white-space: nowrap;
     overflow: hidden;
@@ -153,7 +155,8 @@ const envet = ref('stop')
     padding: 0 10rpx;
     font-size: small;
   }
-  &-info{
+
+  &-info {
     color: white;
     display: flex;
     justify-content: space-between;
@@ -161,13 +164,15 @@ const envet = ref('stop')
     margin-top: 40rpx;
     padding: 0 10rpx;
     font-size: small;
-    &-price{
-      &-b{
+
+    &-price {
+      &-b {
         font-size: x-large;
         margin-right: 16rpx;
       }
     }
-    &-btn{
+
+    &-btn {
       background-color: red;
       padding: 8rpx 16rpx;
       border-radius: 10rpx;
@@ -175,5 +180,5 @@ const envet = ref('stop')
     }
   }
 }
-    // #endif
-</style>
+
+// #endif</style>

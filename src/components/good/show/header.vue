@@ -1,13 +1,10 @@
 <template>
-<<<<<<< HEAD
-  <view class="header" @touchmove.stop.prevent="() => { }">
+  <!-- <view class="header" @touchmove.stop.prevent="() => { }">
     <text class="iconfont header-back" :class="goodSwiper.modal ? 'icon-close1' : 'icon-left'" @tap="goBack"></text>
-    <text class="header-center">{{ !goodSwiper.modal ? title : `${goodSwiper.current + 1}/${goodSwiper.total}` }}</text>
-=======
+    <text class="header-center">{{ !goodSwiper.modal ? title : `${goodSwiper.current + 1}/${goodSwiper.total}` }}</text> -->
   <view class="header">
     <text class="iconfont header-back icon-left" @tap="goBack"></text>
     <text class="header-center">{{ title }}</text>
->>>>>>> 52554abad4b1f70c9061322167b46203cd3b625c
     <!-- #ifdef APP-PLUS -->
     <view class="iconfont icon-fenxiang header-right"></view>
     <!-- #endif -->
