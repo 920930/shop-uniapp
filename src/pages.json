@@ -30,6 +30,13 @@
 				"navigationBarTitleText": "购物车",
 				"backgroundColor": "#F7F7F7"
 			}
+		},
+		{
+			"path": "pages/me/index",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"backgroundColor": "#F7F7F7"
+			}
 		}
 	],
 	"globalStyle": {
@@ -37,5 +44,28 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"height": "5px",
+		"selectedColor": "#d81e06",
+		"color": "#707070",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/index/tabbar/home.png",
+				"selectedIconPath": "static/index/tabbar/homeSelect.png"
+			},{
+				"pagePath": "pages/cart/index",
+				"text": "购物车",
+				"iconPath": "static/index/tabbar/cart.png",
+				"selectedIconPath": "static/index/tabbar/cartSelect.png"
+			},{
+				"pagePath": "pages/me/index",
+				"text": "我的",
+				"iconPath": "static/index/tabbar/user.png",
+				"selectedIconPath": "static/index/tabbar/userSelect.png"
+			}
+		]
 	}
 }

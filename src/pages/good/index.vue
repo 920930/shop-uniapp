@@ -94,7 +94,6 @@
 </template>
 
 <script lang='ts' setup>
-import { ref } from 'vue';
 import { onPageScroll, onBackPress, onUnload } from '@dcloudio/uni-app';
 import { useGoodSwiperStore } from '@/stores/goodSwiper'
 import GoodHeader from '@/components/good/show/header.vue';
