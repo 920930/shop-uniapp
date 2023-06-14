@@ -1,9 +1,6 @@
 <template>
-<<<<<<< HEAD
   <view class="swiper" @tap="open" @touchmove.stop.prevent="() => { }">
-=======
-  <view class="swiper" @tap="open">
->>>>>>> 52554abad4b1f70c9061322167b46203cd3b625c
+  <!-- <view class="swiper" @tap="open"> -->
     <swiper circular :value="current" @change="change" class="swiper-box">
       <swiper-item v-for="im in imgs" :key="im">
         <image :src="im" mode="aspectFill" class="swiper-box-item" />
