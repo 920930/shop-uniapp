@@ -19,7 +19,7 @@
 </template>
 
 <script lang='ts' setup>
-const toCart = () => uni.navigateTo({
+const toCart = () => uni.switchTab({
   url: '/pages/cart/index'
 });
 </script>
